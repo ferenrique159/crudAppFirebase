@@ -1,0 +1,40 @@
+<h1>Listado de Héroes</h1>
+<hr>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+  <button class="btn btn-primary" routerLink="/heroe/nuevo" > <i class="fa fa-plus" ></i> Agregar por Template </button>
+  <button class="btn btn-primary" routerLink="/heroesReactivo/nuevo" > <i class="fa fa-plus" ></i> Agregar por Reactivo </button>
+</div>
+<table class="table" >
+  <thead class="table-dark">
+    <tr>
+      <td>#</td>
+      <td>Nombre</td>
+      <td>Poder</td>
+      <td>Vivo</td>
+      <td>Tools</td>
+    </tr>
+  </thead>
+  <tbody *ngFor="let item of heroesList; let i = index" >
+    <tr>
+      <td> {{ i + 1 }} </td>
+      <td> {{ item.nombre }} </td>
+      <td> {{ item.poder }} </td>
+      <td> <span *ngIf="item.vivo == false" class="badge text-bg-danger"> Muerto </span> <span *ngIf="item.vivo == true"class="badge text-bg-success">Vivo</span> </td>
+      <td>
+          <button class="btn btn-info" [routerLink]="['/heroe', item.id]" > <i class="fa fa-pencil"></i> </button>
+          <button class="btn btn-danger me-5" (click)="deleteHeroe( item, i )"  > <i class="fa fa-trash"></i> </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="cargando" class="alert alert-primary text-center container" role="alert">
+  <h1>Cargando</h1>
+  <i class="fa fa-sync-alt fa-3x fa-spin "></i> <br>
+  Espere un momento por favor
+</div>
+
+<div *ngIf="heroesList.length === 0" class="alert alert-warning text-center container" role="alert">
+  <h1>No hay registros</h1>
+  <i class="fa fa-exclamation fa-3x"></i> <br>
+</div>
